@@ -16,10 +16,6 @@ scene.add(light);
 camera.position.z = 5;
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.25;
-controls.screenSpacePanning = false;
-controls.maxPolarAngle = Math.PI / 2;
 
 // Load textures
 var textureLoader = new THREE.TextureLoader();
@@ -33,7 +29,7 @@ var meshes = [];
 for (var i = 0; i < 5; i++) {
     for (var j = 0; j < 3; j++) {
         var material = new THREE.MeshBasicMaterial({ map: textures[(i * 3 + j) % 8] });
-        var geometry = new THREE.PlaneGeometry(1, 1);
+        var geometry = new THREE.BoxGeometry(1, 1, 1); // Change this line
         var mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(i - 2, 1 - j, 0);
         scene.add(mesh);
@@ -48,3 +44,26 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// Function to spin the reels
+function spinReels() {
+    var duration = 2000; // duration of spin in milliseconds
+    var start = Date.now();
+    function spin() {
+        var now = Date.now();
+        var progress = now - start;
+        if (progress < duration) {
+            requestAnimationFrame(spin);
+            for (var i = 0; i < 5; i++) {
+                for (var j = 0; j < 3; j++) {
+                    var mesh = meshes[i * 3 + j];
+                    mesh.material.map = textures[Math.floor(Math.random() * 8)];
+                }
+            }
+        }
+    }
+    spin();
+}
+
+// Event listener for spin button
+document.getElementById('spinButton').addEventListener('click', spinReels);
