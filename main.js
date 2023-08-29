@@ -3,10 +3,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { spinReels } from './spinReels.js';
+import { wiggleCamera } from './cameraWiggle.js';
+import { loadModels } from './loadModels.js';
 
-
+// Set up scene
 var scene = new THREE.Scene();
-var camera = new THREE.OrthographicCamera(-3, 3, 2, -2, 1, 1000);
+var camera = new THREE.OrthographicCamera(-6, 6, 4, -4, 1, 1000);
 var renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas').appendChild(renderer.domElement);
@@ -15,12 +17,22 @@ document.getElementById('canvas').appendChild(renderer.domElement);
 var light = new THREE.PointLight(0xffffff, 1, 1000);
 light.position.set(0, 0, 10);
 scene.add(light);
-
 var ambientLight = new THREE.AmbientLight(0xffffff); // full intensity
 scene.add(ambientLight);
 
-camera.position.z = 5; //If this number isn't 5 it doesn't work
-camera.position.x += 0.3;
+camera.position.z = 100; 
+
+// Move the camera up
+camera.position.y = 10;
+
+// Tilt it down
+camera.rotation.x = -Math.PI / 4; // rotate camera 45 degrees down
+
+// update the camera
+camera.updateProjectionMatrix();
+
+
+
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0.3, 0, 0);
@@ -45,16 +57,12 @@ for (var i = 0; i < 5; i++) {
     }
 }
 
-const gltfLoader = new GLTFLoader();
-gltfLoader.load('/assets/Warrior of the Ocean/scene.gltf', (gltf) => {
-    gltf.scene.position.x += 3;  // move the model 5 units to the right
-    gltf.scene.scale.set(5, 5, 5);  // scale the model by a factor of 5
-    scene.add(gltf.scene);
-});
+loadModels(scene);
 
 // Render the scene
 function animate() {
     requestAnimationFrame(animate);
+    wiggleCamera(camera);
     controls.update();
     renderer.render(scene, camera);
 }
