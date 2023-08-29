@@ -1,6 +1,9 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { spinReels } from './spinReels.js';
+
 
 var scene = new THREE.Scene();
 var camera = new THREE.OrthographicCamera(-3, 3, 2, -2, 1, 1000);
@@ -13,9 +16,14 @@ var light = new THREE.PointLight(0xffffff, 1, 1000);
 light.position.set(0, 0, 10);
 scene.add(light);
 
-camera.position.z = 5;
+var ambientLight = new THREE.AmbientLight(0xffffff); // full intensity
+scene.add(ambientLight);
+
+camera.position.z = 5; //If this number isn't 5 it doesn't work
+camera.position.x += 0.3;
 
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0.3, 0, 0);
 
 // Load textures
 var textureLoader = new THREE.TextureLoader();
@@ -37,6 +45,13 @@ for (var i = 0; i < 5; i++) {
     }
 }
 
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('/assets/Warrior of the Ocean/scene.gltf', (gltf) => {
+    gltf.scene.position.x += 3;  // move the model 5 units to the right
+    gltf.scene.scale.set(5, 5, 5);  // scale the model by a factor of 5
+    scene.add(gltf.scene);
+});
+
 // Render the scene
 function animate() {
     requestAnimationFrame(animate);
@@ -45,25 +60,7 @@ function animate() {
 }
 animate();
 
-// Function to spin the reels
-function spinReels() {
-    var duration = 2000; // duration of spin in milliseconds
-    var start = Date.now();
-    function spin() {
-        var now = Date.now();
-        var progress = now - start;
-        if (progress < duration) {
-            requestAnimationFrame(spin);
-            for (var i = 0; i < 5; i++) {
-                for (var j = 0; j < 3; j++) {
-                    var mesh = meshes[i * 3 + j];
-                    mesh.material.map = textures[Math.floor(Math.random() * 8)];
-                }
-            }
-        }
-    }
-    spin();
-}
-
 // Event listener for spin button
-document.getElementById('spinButton').addEventListener('click', spinReels);
+document.getElementById('spinButton').addEventListener('click', function() {
+  spinReels(meshes, textures);
+});

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Warrior of the Ocean
+* source:	https://sketchfab.com/3d-models/warrior-of-the-ocean-fb11d8bde6734b24a4eb5fe2b6e062e1
+* author:	Klayzen (https://sketchfab.com/klayzen)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Warrior of the Ocean" (https://sketchfab.com/3d-models/warrior-of-the-ocean-fb11d8bde6734b24a4eb5fe2b6e062e1) by Klayzen (https://sketchfab.com/klayzen) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
