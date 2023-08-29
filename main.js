@@ -4,7 +4,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { spinReels } from './spinReels.js';
 import { wiggleCamera } from './cameraWiggle.js';
-import { loadModels } from './loadModels.js';
 
 // Set up scene
 var scene = new THREE.Scene();
@@ -31,9 +30,6 @@ camera.rotation.x = -Math.PI / 4; // rotate camera 45 degrees down
 // update the camera
 camera.updateProjectionMatrix();
 
-
-
-
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0.3, 0, 0);
 
@@ -57,7 +53,39 @@ for (var i = 0; i < 5; i++) {
     }
 }
 
-loadModels(scene);
+const gltfLoader = new GLTFLoader();
+
+gltfLoader.load('/assets/Warrior of the Ocean/scene.gltf', (gltf) => {
+    gltf.scene.position.set(4.5, -1, 0); //(left/right, up/down, forward/backward)
+    gltf.scene.scale.set(10, 10, 10);
+    scene.add(gltf.scene);
+});
+
+gltfLoader.load('/assets/Ruin Scene/scene.gltf', (gltf) => {
+    gltf.scene.scale.set(8, 8, 8);
+    gltf.scene.position.set(3, -5.5, -2); //(left/right, up/down, forward/backward)
+    gltf.scene.rotation.y = Math.PI / 2;
+    scene.add(gltf.scene);
+});
+
+var mixer;
+var fish;
+var direction = 1;
+var speed = 0.01;
+
+gltfLoader.load('/assets/Ugly Fish/scene.gltf', (gltf) => {
+    fish = gltf.scene;
+    fish.scale.set(0.01, 0.01, 0.01);
+    fish.position.set(-10, 1, 2);
+    fish.rotation.y = Math.PI / 2;
+    scene.add(fish);
+
+    // Animation
+    mixer = new THREE.AnimationMixer(fish);
+    gltf.animations.forEach((clip) => {
+        mixer.clipAction(clip).play();
+    });
+});
 
 // Render the scene
 function animate() {
@@ -65,10 +93,24 @@ function animate() {
     wiggleCamera(camera);
     controls.update();
     renderer.render(scene, camera);
+    if (mixer) mixer.update(0.01);
+
+    // Move fish left and right
+    if (fish) moveFish();
 }
+
+function moveFish() {
+    fish.position.x += direction * speed;
+    if (fish.position.x > 20 || fish.position.x < -20) {
+        direction = -direction;
+        fish.rotation.y += Math.PI;
+    }
+}
+
 animate();
 
 // Event listener for spin button
 document.getElementById('spinButton').addEventListener('click', function() {
   spinReels(meshes, textures);
+  
 });
