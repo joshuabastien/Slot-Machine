@@ -1,0 +1,8 @@
+Model Information:
+* title:	Treasure Chest - Medium
+* source:	https://sketchfab.com/3d-models/treasure-chest-medium-5ce21176ab5d419f80644f9096a5a2f1
+* author:	BitGem (https://sketchfab.com/bitgem)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

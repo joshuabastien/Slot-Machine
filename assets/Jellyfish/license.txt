@@ -1,0 +1,8 @@
+Model Information:
+* title:	Jelly Fish Rigged
+* source:	https://sketchfab.com/3d-models/jelly-fish-rigged-29dff73159e941f199efe233c608fd6f
+* author:	Armored Interactive (https://sketchfab.com/ychiang6)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

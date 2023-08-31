@@ -1,0 +1,11 @@
+Model Information:
+* title:	shark
+* source:	https://sketchfab.com/3d-models/shark-a2e4785b44d74047b044ebcc9950baec
+* author:	paulincalmejane.lya (https://sketchfab.com/paulincalmejane.lya)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "shark" (https://sketchfab.com/3d-models/shark-a2e4785b44d74047b044ebcc9950baec) by paulincalmejane.lya (https://sketchfab.com/paulincalmejane.lya) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

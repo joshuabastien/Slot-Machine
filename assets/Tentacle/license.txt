@@ -1,0 +1,8 @@
+Model Information:
+* title:	Tentacle Monster
+* source:	https://sketchfab.com/3d-models/tentacle-monster-910c01bbf6004030a3c8e6fd0371d9e5
+* author:	Jiovanie Velazquez (https://sketchfab.com/Jiovanie)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

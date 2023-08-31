@@ -1,0 +1,8 @@
+Model Information:
+* title:	rounded shell
+* source:	https://sketchfab.com/3d-models/rounded-shell-4e649a26cc3047c9aa49693d4e7c30ef
+* author:	pinotoon (https://sketchfab.com/pinotoon)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
