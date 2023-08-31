@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { spinReels } from './spinReels.js';
 import { wiggleCamera } from './cameraWiggle.js';
+import { loadModels, updateModels } from './loadModels.js';
 
 // Set up scene
 var scene = new THREE.Scene();
@@ -40,8 +41,6 @@ for (var i = 1; i <= 8; i++) {
     textures.push(textureLoader.load('assets/icon' + i + '.png'));
 }
 
-// var borderMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 }); // black color
-
 // Create meshes and add to scene
 var meshes = [];
 for (var i = 0; i < 5; i++) {
@@ -59,49 +58,9 @@ for (var i = 0; i < 5; i++) {
         scene.add(mesh);
         meshes.push(mesh);
     }
-    
-    // add borders between the columns of reels
-    // if (i < 4) {
-    //     var borderGeometry = new THREE.BoxGeometry(0.1, 3, 1); 
-    //     var borderMesh = new THREE.Mesh(borderGeometry, borderMaterial);
-    //     borderMesh.position.set(i - 1.45, 0, 0);
-    //     scene.add(borderMesh);
-    // }
 }
 
-const gltfLoader = new GLTFLoader();
-
-gltfLoader.load('/assets/shark warrior/scene.gltf', (gltf) => {
-    gltf.scene.position.set(5, 2, -1); //(left/right, up/down, forward/backward)
-    gltf.scene.scale.set(0.5, 0.5, 0.5);
-    scene.add(gltf.scene);
-});
-
-// gltfLoader.load('/assets/Ruin Scene/scene.gltf', (gltf) => {
-//     gltf.scene.scale.set(8, 8, 8);
-//     gltf.scene.position.set(2.5, -6, -2); //(left/right, up/down, forward/backward)
-//     gltf.scene.rotation.y = Math.PI / 2;
-//     scene.add(gltf.scene);
-// });
-
-var mixer;
-var fish;
-var direction = 1;
-var speed = 0.01;
-
-gltfLoader.load('/assets/Ugly Fish/scene.gltf', (gltf) => {
-    fish = gltf.scene;
-    fish.scale.set(0.01, 0.01, 0.01);
-    fish.position.set(-10, 2, 2);
-    fish.rotation.y = Math.PI / 2;
-    scene.add(fish);
-
-    // Animation
-    mixer = new THREE.AnimationMixer(fish);
-    gltf.animations.forEach((clip) => {
-        mixer.clipAction(clip).play();
-    });
-});
+loadModels(scene);
 
 // Render the scene
 function animate() {
@@ -109,24 +68,13 @@ function animate() {
     wiggleCamera(camera);
     controls.update();
     renderer.render(scene, camera);
-    if (mixer) mixer.update(0.01);
-
-    // Move fish left and right
-    if (fish) moveFish();
+    updateModels();
 }
-
-function moveFish() {
-    fish.position.x += direction * speed;
-    if (fish.position.x > 20 || fish.position.x < -20) {
-        direction = -direction;
-        fish.rotation.y += Math.PI;
-    }
-}
-
-animate();
 
 // Event listener for spin button
 document.getElementById('spinButton').addEventListener('click', function() {
-  spinReels(meshes, textures);
-  
+    spinReels(meshes, textures);
+    // start oyster animation here
 });
+
+animate();
